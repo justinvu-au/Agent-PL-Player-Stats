@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+anthropic
+requests
+cachetools
+python-dotenv
+pytest
+pytest-asyncio
+httpx

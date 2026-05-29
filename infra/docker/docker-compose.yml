@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+
+  agent:
+    build:
+      context: ../../agent
+      dockerfile: Dockerfile
+    container_name: pl_agent
+    env_file:
+      - ../../.env
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../../frontend
+      dockerfile: Dockerfile
+    container_name: pl_frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      agent:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  default:
+    name: pl_network
