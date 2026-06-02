@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pl-stats-agent
+  labels:
+    app: pl-stats-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pl-stats-agent
+  template:
+    metadata:
+      labels:
+        app: pl-stats-agent
+    spec:
+      containers:
+        - name: agent
+          image: plstatsacr.azurecr.io/pl-stats-agent:v1
+          ports:
+            - containerPort: 8000
+          env:
+            - name: RAPIDAPI_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pl-stats-secrets
+                  key: rapidapi-key
+            - name: ANTHROPIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pl-stats-secrets
+                  key: anthropic-api-key
+            - name: RAPIDAPI_HOST
+              value: "english-premiere-league1.p.rapidapi.com"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
