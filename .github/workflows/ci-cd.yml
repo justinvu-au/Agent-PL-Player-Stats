@@ -57,6 +57,7 @@ jobs:
         run: |
           docker build \
             --platform linux/amd64 \
+            -f agent/Dockerfile \
             -t ${{ env.AGENT_IMAGE }}:${{ github.sha }} \
             -t ${{ env.AGENT_IMAGE }}:latest \
             ./agent
@@ -97,6 +98,7 @@ jobs:
         run: |
           docker build \
             --platform linux/amd64 \
+            -f frontend/Dockerfile \
             -t ${{ env.FRONTEND_IMAGE }}:${{ github.sha }} \
             -t ${{ env.FRONTEND_IMAGE }}:latest \
             ./frontend
