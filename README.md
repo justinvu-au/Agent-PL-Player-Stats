@@ -60,6 +60,7 @@ Type any player's name and get real-time stats with a Claude AI pundit analysis.
 
 ## Project structure
 
+```
 pl-stats-platform/
 ├── agent/                  # FastAPI AI agent
 │   ├── src/pl_stats/
@@ -80,6 +81,7 @@ pl-stats-platform/
 └── k8s/                    # Kubernetes manifests
 ├── agent/                  # Deployment, Service, HPA
 └── frontend/               # Deployment, Service (LoadBalancer)
+```
 
 ---
 
