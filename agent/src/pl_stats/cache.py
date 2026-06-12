@@ -12,10 +12,16 @@ _call_log: list[float] = []
 DAILY_LIMIT = 90
 
 def get_cached_player(key: str) -> dict | None:
+    global _cache_hits
     result = _player_cache.get(key)
     if result:
-        log.info(f"Cache HIT for '{key}'")
+        _cache_hits += 1
+        log.info(f"Cache HIT for '{key}' (total hits: {_cache_hits})")
     return result
+
+
+def get_cache_hits() -> int:
+    return _cache_hits
 
 
 def set_cached_player(key: str, data: dict) -> None:
