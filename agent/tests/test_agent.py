@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from pl_stats.agent import analyze_player, _format_player_for_prompt
+from pl_stats.agent import analyse_player, _format_player_for_prompt
 
 MOCK_PLAYER_DATA = {
     "id": "3109",
@@ -38,7 +38,7 @@ def test_analyse_player_returns_correct_shape(mock_client, mock_fetch):
     mock_message.content = [MagicMock(text="Salah has been outstanding this season...")]
     mock_client.messages.create.return_value = mock_message
 
-    result = analyze_player("Salah", [])
+    result = analyse_player("Salah", [])
 
     assert result["player_name"] == "Mohamed Salah"
     assert "reply" in result
