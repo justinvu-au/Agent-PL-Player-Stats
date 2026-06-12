@@ -7,9 +7,9 @@ log = logging.getLogger(__name__)
 
 # Cap 200 players, each entry lives 1 hour
 _player_cache: TTLCache = TTLCache(maxsize=200, ttl=3600)
-
-_call_log: list[float] = []
+_call_log: list = []
 DAILY_LIMIT = 90
+_cache_hits = 0
 
 def get_cached_player(key: str) -> dict | None:
     global _cache_hits
