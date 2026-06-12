@@ -54,7 +54,7 @@ Current Season Statistics:
 """.strip()
 
 
-def analyze_player(player_name: str, conversation_history: list[dict]) -> dict:
+def analyse_player(player_name: str, conversation_history: list[dict]) -> dict:
     """
     Resolve player name → fetch ESPN data → send to Claude → return analysis.
 
